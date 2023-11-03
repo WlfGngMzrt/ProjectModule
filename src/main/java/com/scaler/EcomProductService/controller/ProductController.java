@@ -1,14 +1,13 @@
 package com.scaler.EcomProductService.controller;
 
 import com.scaler.EcomProductService.dto.ProductListResponseDTO;
+import com.scaler.EcomProductService.dto.ProductRequestDTO;
 import com.scaler.EcomProductService.dto.ProductResponseDTO;
 import com.scaler.EcomProductService.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -44,10 +43,24 @@ public class ProductController {
         ProductListResponseDTO productsList = productService.getAllProducts();
         return ResponseEntity.ok(productsList);
     }
-    @GetMapping("/products/1")
-    public ResponseEntity getProductFromId()
+    @GetMapping("/products/{id}")
+    public ResponseEntity getProductFromId(@PathVariable("id") int id)
     {
-        ProductResponseDTO response = productService.getProductById(1);
+        ProductResponseDTO response = productService.getProductById(id);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/products")
+    public ResponseEntity createProduct(@RequestBody ProductRequestDTO productRequestDTO)
+    {
+        ProductResponseDTO responseDTO = productService.createProduct(productRequestDTO);
+        return ResponseEntity.ok(responseDTO);
+    }
+
+    @DeleteMapping("/products/{id}")
+    public ResponseEntity deleteProduct(@PathVariable("id") int id)
+    {
+        boolean response = productService.deleteProduct(id);
         return ResponseEntity.ok(response);
     }
 }
