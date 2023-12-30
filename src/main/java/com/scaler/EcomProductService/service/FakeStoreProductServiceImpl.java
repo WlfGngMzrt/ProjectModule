@@ -46,7 +46,6 @@ public class FakeStoreProductServiceImpl implements ProductService{
             throw new ProductNotFoundException("Product not found with the id " + id);
         }
         return ProductMapper.fakeProductResponseToProductResponse(fakeStoreProductResponseDTO);
-
     }
 
     @Override
@@ -55,7 +54,6 @@ public class FakeStoreProductServiceImpl implements ProductService{
         FakeStoreProductRequestDTO fakeStoreProductRequestDTO = ProductMapper.productRequestToFakeStoreProductRequest(productRequestDTO);
         FakeStoreProductResponseDTO fakeStoreProductDTO = fakeStoreAPIClient.createProduct(fakeStoreProductRequestDTO);
         return ProductMapper.fakeProductResponseToProductResponse(fakeStoreProductDTO);
-
     }
 
     @Override
