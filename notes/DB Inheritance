@@ -1,0 +1,121 @@
+
+DB Inheritance
+1.MappedSuperClass -> No table for the parent class, but individual table
+                        for each child class. Child class gets the attributes from
+                        the parent, and they become columns in the child class tables.
+
+     Advantages :
+     1. Cleaner
+     2. Queries are simple
+
+     Dis Advantages :
+     1. Cannot store parent class data
+
+
+
+lets take an example
+
+we have a user class
+-id
+-name
+-email
+
+we have multiple users
+instructor
+-avgrating
+
+mentor
+-avgrating
+
+student
+- psp
+- batchName
+
+TA
+-startTime
+-endTime
+
+Now how can we showcase all these things into the database
+1. By using MapperSuperClass
+
+-> We don't create a table for the parent class
+-> one table each for each child class
+   includes the attributes of the parent class in child class
+-> typically used when we want to make the parent class
+   abstract
+2. By using TablePerClass
+
+-> very very similar to the mapped superclass
+-> only difference is there will be a table for the parent class
+-> one table each for each child class
+   includes the attributes of the parent class in child class
+
+   Advantages
+   1. Can store parent class
+
+   Disadvantage :
+   -> Let us say we call
+            List<User> user = UserRepository.findAll()
+            -> Ideally it should return all the record from the user table
+            -> But in reality it fetches all the object of users +
+                                                    all objects of child
+            when it fetches all the objects from the users and the child
+            it will only fetch the attributes present in the parent not the child
+
+            Actual query it will look like is
+
+            SELECT id,name,email FROM Users
+            UNION
+            SELECT id,name,email FROM Instructors
+            UNION
+            SELECT id,name,email FROM Mentors
+
+            Advantage :
+            1. We can store a generic user
+            Disadvantage :
+            2. It will slow the query. As it will go through all the tables
+                also will contain the duplicate records
+
+3. Joined Tables:
+    We will create tabled for the parent as well as child
+    all the attributes of the parent are present int parent class
+    But child class will have their own attributes
+
+    example:
+
+    User :              In user table we will have id, name, email
+    - id
+    - name
+    - email
+
+    Student :           In student table we will have userId, psp, batchName
+    -psp
+    -batchName
+
+    How we fetch the details of one student ?
+    We might need the join query multiple times.
+
+    Note :
+    FK is automatically created by the DB
+
+    Advantages :
+    1. Data is optimised
+
+    Disadvantages :
+    2. Join query may be needed multiple times
+
+4. Single table
+    -> Creates on giant table cumulating all the attributes
+    ex :
+    id | name |  email | ins_avgRating | men_avgRating | psp batchName | st_time | end_time | discriminator/differenciator
+
+    here we have another additional column which is called the discriminator
+    which tells us where the data is coming from
+
+    Advantages :
+    1. Faster Queries
+    Disadvantages :
+    2. Wastage of space
+
+
+

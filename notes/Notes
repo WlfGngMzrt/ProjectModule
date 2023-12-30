@@ -1,0 +1,11 @@
+1. Difference Between CRUD Repository and JPA Repository
+
+-> JPA Repository is the superset of the CRUD Repository
+    CRUD Repo only contains CRUD Operations
+    JPA Repo contains the CRUD as well as Pagination and Sorting
+
+2. Difference between POJO and bean
+
+POJO -> Plain Old Java Object
+
+Bean -> Object which is inside a Spring IOC container, this has our beans
