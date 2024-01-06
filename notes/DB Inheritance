@@ -118,4 +118,14 @@ Now how can we showcase all these things into the database
     2. Wastage of space
 
 
+Mappings :
+
+1. Bi Directional Mapping
+2. Uni Directional Mapping
+
+
+Fetch Types :
+
+1. Eager Loading
+2. Lazy Loading
 
