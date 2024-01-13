@@ -6,7 +6,7 @@ import lombok.Data;
 
 import java.util.List;
 
-@Entity
+@Entity(name = "ECOM_ORDER")
 @Data
 public class Order extends BaseModel{
     @ManyToMany

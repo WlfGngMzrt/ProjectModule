@@ -1,6 +1,5 @@
 package com.scaler.EcomProductService.model;
 
-import com.fasterxml.jackson.databind.ser.Serializers;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
@@ -16,14 +15,13 @@ import java.util.List;
 public class Product extends BaseModel {
 
     private String title;
-    @ManyToOne
-    private Category category;
     private String description;
     private String image;
     @OneToOne
     private Price price;
-    @ManyToMany
-    private List<Order> order;
+    @ManyToOne
+    private Category category;
+    
 
 
     /*
