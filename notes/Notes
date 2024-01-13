@@ -9,3 +9,61 @@
 POJO -> Plain Old Java Object
 
 Bean -> Object which is inside a Spring IOC container, this has our beans
+
+
+************************************************************************************
+
+
+Lecture : N+1 Problem, Fetch Types, Fetch Modes
+
+Agenda :
+
+JPA Mappings
+Cascade Type
+Fetch Types
+Custom Queries
+
+1. JPA Mappings
+
+    i. One to Many Relation Mappings
+    Imagine the a case where we need relationship between a customer and
+    order.
+
+    A customer will have the list of all their orders, but one order
+    must not contain all the customers who have that order
+
+    Customer ------ Order
+    1           :       M  ------> uni-directional from customer end
+
+
+    @JoinColumn & @MappedBy
+
+    1. JoinColumn : we dont want to have a third table we want to have a join
+                    by a column not by the mapping table. We have to tell by which
+                    column.
+
+    Note :
+
+    Unidirectional Mapping :
+
+    @OneToMany -> DB -> PK of the 1 side goes as the FK into the M side.
+
+    @ManyToOne -> by default the pk of the 1 side goes as the fk in the M side
+    @OneToMany -> by default, creates a mapping table
+
+    @JoinColumn with @OneToMany -> to specify pk of the 1 side goes as fk into
+                                   M side
+                      convention to join column -> tableName_idFieldName
+
+
+    2. MappedBy : Only in bidirectional mapping
+                  Defines the owning side of the mapping
+
+       ex : let us day we have 3 product in the "electronics" category
+       now for us, if we delete a product it should not delete the whole category
+       also if we delete a category it should not delete all corresponding products
+       (technically yes since there is so such category, but better practice
+       is to first chane the products category and then delete the category).
+
+
+
